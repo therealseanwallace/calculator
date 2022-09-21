@@ -98,9 +98,7 @@ let calcCounter = 0;
 let output = "";
 function processValues(key) {
   const number = /\d/;
-  function convertInputToNum() {
-    input = Number(input);
-  }
+  
   
 
   if (number.test(key)) {
@@ -122,10 +120,7 @@ function processValues(key) {
     if (output != "") {
       calcOutput();
     } else {
-    
-    convertInputToNum();
-    a = input;
-    clearInput();
+      convertClearInput()
     }
     operator = "/";
 
@@ -137,10 +132,7 @@ function processValues(key) {
     if (output != "") {
       calcOutput();
     } else {
-    
-    convertInputToNum();
-    a = input;
-    clearInput();
+      convertClearInput()
     }
     operator = "*";
   } else {
@@ -151,8 +143,7 @@ function processValues(key) {
     if (output != "") {
       calcOutput();
     } else {
-    
-    convertInputToNum();
+      convertClearInput()
     a = input;
     clearInput();
     }
@@ -162,7 +153,12 @@ function processValues(key) {
   }
 
   if (key === "+") {
-    
+    if (output != "") {
+      calcOutput();
+    } else {
+      convertClearInput()
+    }
+    operator = "+";
   } else {
     
   }
@@ -206,6 +202,14 @@ function performCalc() {
     output = a - input;
     clearInput();
   }
+
+  if (operator === "+") {
+    a = Number(a);
+    input = Number(input);
+    output = a + input;
+    clearInput();
+  }
+  console.log(output);
 }
 function updateDisplay() {
 
@@ -216,4 +220,10 @@ function calcOutput() {
     a = output;
   }
   
+}
+
+function convertClearInput() {
+  input = Number(input);
+  a = input;
+  clearInput();
 }
