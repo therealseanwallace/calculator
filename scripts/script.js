@@ -1,5 +1,6 @@
 (() => {
     
+  
     const createDiv = (class1, container, class2) => {
       const selectDiv = document.querySelector(`.${container}`);
       console.log("Div selected!", selectDiv);
@@ -15,18 +16,27 @@
       console.log("Created div with classes:", class1, " ", class2);
     }
 
+    let buttonCounter = 0;
     createDiv("upper-row", "buttons");
     createDiv("lower-columns", "buttons");
+
     for (let i = 0; i < 4; i++) {
-      createDiv(`upper-button-${i}`, "upper-row");
+      createDiv(`button-${buttonCounter}`, "upper-row", "upper-button");
+      buttonCounter++;
     }
-    let buttonCounter = 0;
+    
     for (let i = 0; i < 6; i++) {
       createDiv(`column-${i}`, "lower-columns", "column");
       for (let index = 0; index < 4; index++) {
-        createDiv(`lower-${buttonCounter}`, `column-${i}`, "lower");
+        createDiv(`button-${buttonCounter}`, `column-${i}`, "lower");
         buttonCounter++;
       }
+    }
+
+    for (let i = 0; i < buttonCounter; i++) {
+      console.log(`Selecting inner-button-${i}, button-${i}`)
+      createDiv(`inner-button-${i}`, `button-${i}`, "inner-button");
+      
     }
 
     
