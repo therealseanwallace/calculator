@@ -2,6 +2,7 @@
     
     
     const createDiv = (class1, container, class2, /*contentId,*/ containerType, type) => {
+      const buttonContent = ["", "Back", "CE", "C", "MC", "MR", "MS", "M+", "7", "4", "1", "0", "8", "5", "2", "+/-", "9", "6", "3", ".", "/", "*", "-", "+", "sqrt", "%", "1/x", "="]
       const selectDiv = document.querySelector(`.${container}`);
       const newDiv = document.createElement(`${containerType}`);
       
@@ -46,10 +47,8 @@
     }
     let forOfCounter = 0;
     const selectInnerButtons = document.querySelectorAll(".inner-button")
+    
     for (const btn of selectInnerButtons) {
-      const buttonContent = ["", "Back", "CE", "C", "MC", "MR", "MS", "M+", "7", "4", "1", "0", "8", "5", "2", "+/-", "9", "6", "3", ".", "/", "*", "-", "+", "sqrt", "%", "1/x", "="]
-      btn.value = buttonContent[forOfCounter];
-      btn.setAttribute("type", "button");
       if (forOfCounter <= 3) {
         btn.classList.add("dark-red")
         
@@ -57,27 +56,10 @@
 
       if (forOfCounter >= 4 && forOfCounter <= 7) {
       btn.classList.add("red")
-      }
-
-      if (forOfCounter >= 8 && forOfCounter <= 19) {
-        btn.classList.add("blue")
-      }
       
-      if (forOfCounter >= 20 && forOfCounter <= 23) {
-        btn.classList.add("red")
       }
 
-      if (forOfCounter >= 20 && forOfCounter <= 23) {
-        btn.classList.add("red")
-      }
-
-      if (forOfCounter >= 24 && forOfCounter <= 26){
-        btn.classList.add("darkblue")
-      }
-
-      if (forOfCounter === 27) {
-        btn.classList.add("red")
-      }
+      //if (forOfCounter >= 5 && forOfCounter <= 19) {}
       forOfCounter++;
 
     }
