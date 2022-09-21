@@ -19,7 +19,6 @@
 
       
       selectDiv.append(newDiv);
-      console.log("Created div with classes:", class1, " ", class2);
     }
 
     let buttonCounter = 0;
@@ -40,7 +39,6 @@
     }
 
     for (let i = 0; i < buttonCounter; i++) {
-      console.log(`Creating inner-button-${i}, button-${i}`)
       createDiv(`inner-button-${i}`, `button-${i}`, "inner-button", /*i,*/ "input");
       
     }
@@ -90,22 +88,25 @@
 
 let newNum = 0;
 function getValue(e) {
-  console.log("this is e.target.value", e.target.value);
   processValues(e.target.value);
 }
 
 let input = "";
+let operator = "";
+let a = "";
+let calcCounter = 0;
+let output = "";
 function processValues(key) {
   const number = /\d/;
-  console.log("this is key", key);
-  
+  function convertInputToNum() {
+    input = Number(input);
+  }
   
 
   if (number.test(key)) {
     input = input + key;
-    console.log("input is now", input);
   } else {
-    console.log("nan lol");
+    
   }
   
   if (key === ".") {
@@ -114,54 +115,105 @@ function processValues(key) {
     } else {
       input = input + key;
     }
-    console.log("period");
-  } else {
-    console.log("not period lol");
-  }
+  } 
 
   if (key === "/") {
-    console.log("divide!");
+    
+    if (output != "") {
+      calcOutput();
+    } else {
+    
+    convertInputToNum();
+    a = input;
+    clearInput();
+    }
+    operator = "/";
+
   } else {
-    console.log("not divide lol");
+    
   }
 
   if (key === "*") {
-    console.log("multiply!")
+    if (output != "") {
+      calcOutput();
+    } else {
+    
+    convertInputToNum();
+    a = input;
+    clearInput();
+    }
+    operator = "*";
   } else {
-    console.log("not multiply lol");
+    
   }
 
   if (key === "-") {
-    console.log("subtract!")
+    if (output != "") {
+      calcOutput();
+    } else {
+    
+    convertInputToNum();
+    a = input;
+    clearInput();
+    }
+    operator = "-";
   } else {
-    console.log("not subtract lol");
+    
   }
 
   if (key === "+") {
-    console.log("add!")
+    
   } else {
-    console.log("not add lol");
+    
   }
 
   if (key === "=") {
-    console.log("equals!")
+    performCalc();
+    calcCounter ++;
   } else {
-    console.log("not equals lol");
+    
   }
 
   if (key === "C") {
-    console.log("c!")
+    
   } else {
-    console.log("not c lol");
+    
   }
 
   if (key === "CE") {
-    console.log("ce!")
+    
   } else {
-    console.log("not ce lol");
+    
   }
 }
 
+function clearInput() {
+  input = "";
+}
+
+function performCalc() {
+  if (operator === "/") {
+    output = a / input;
+    clearInput();
+  }
+
+  if (operator === "*") {
+    output = a * input;
+    clearInput();
+  }
+
+  if (operator === "-") {
+    output = a - input;
+    clearInput();
+  }
+}
 function updateDisplay() {
 
+}
+
+function calcOutput() {
+  if (output != "") {
+    a = output;
+  }
+  
 }
