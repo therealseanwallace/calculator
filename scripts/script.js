@@ -1,4 +1,4 @@
-(() => {
+(() => { //create calculator buttons
     
     
     const createDiv = (class1, container, class2, /*contentId,*/ containerType, type) => {
@@ -50,6 +50,10 @@
       const buttonContent = ["", "Back", "CE", "C", "MC", "MR", "MS", "M+", "7", "4", "1", "0", "8", "5", "2", "+/-", "9", "6", "3", ".", "/", "*", "-", "+", "sqrt", "%", "1/x", "="]
       btn.value = buttonContent[forOfCounter];
       btn.setAttribute("type", "button");
+      
+      btn.addEventListener("click", getValue);
+      
+
       if (forOfCounter <= 3) {
         btn.classList.add("dark-red")
         
@@ -84,6 +88,80 @@
     
 })();
 
+let newNum = 0;
+function getValue(e) {
+  console.log("this is e.target.value", e.target.value);
+  processValues(e.target.value);
+}
 
+let input = "";
+function processValues(key) {
+  const number = /\d/;
+  console.log("this is key", key);
+  
+  
 
+  if (number.test(key)) {
+    input = input + key;
+    console.log("input is now", input);
+  } else {
+    console.log("nan lol");
+  }
+  
+  if (key === ".") {
+    if (input.indexOf(".") !== -1) {
+      return;
+    } else {
+      input = input + key;
+    }
+    console.log("period");
+  } else {
+    console.log("not period lol");
+  }
 
+  if (key === "/") {
+    console.log("divide!");
+  } else {
+    console.log("not divide lol");
+  }
+
+  if (key === "*") {
+    console.log("multiply!")
+  } else {
+    console.log("not multiply lol");
+  }
+
+  if (key === "-") {
+    console.log("subtract!")
+  } else {
+    console.log("not subtract lol");
+  }
+
+  if (key === "+") {
+    console.log("add!")
+  } else {
+    console.log("not add lol");
+  }
+
+  if (key === "=") {
+    console.log("equals!")
+  } else {
+    console.log("not equals lol");
+  }
+
+  if (key === "C") {
+    console.log("c!")
+  } else {
+    console.log("not c lol");
+  }
+
+  if (key === "CE") {
+    console.log("ce!")
+  } else {
+    console.log("not ce lol");
+  }
+}
+
+function updateDisplay() {
+
+}
