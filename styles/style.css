@@ -1,0 +1,55 @@
+/*RESET STYLES */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
+html, body {
+  height: 100%;
+}
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+input, button, textarea, select {
+  font: inherit;
+}
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+#root, #__next {
+  isolation: isolate;
+}
+
+/*STYLES*/
+
+.outermost-container {
+  height: 558px;
+  width: 550px;
+  margin: auto;
+  border: 2px solid;
+  border-color:  #c0c0c0 #000000 #000000 #c0c0c0;
+}
+
+.outer-container {
+  border: 2px solid;
+  border-color: white #808080 #808080 white;
+}
+
+.title-bar {
+  background: #000080;
+  display: flex;
+  color: white;
+  font-family: W95B;
+}
+
+.calc-img {
+  width: 32px;
+  height: 24px;
+}
