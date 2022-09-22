@@ -100,51 +100,122 @@ console.log(selectDisplay);
 
 
 function updateInputFromDisplay() {
-  input = selectDisplay.value;
+  inputStr = selectDisplay.value;
 }
 
 function clearDisplay() {
   selectDisplay.value = "";
 }
 
+const regOps = /^[+\-*.\/]*$/ //regex to test for any of the following math operators: + - * /
 
 function getInput(e) { // gets a button value from a button press event and processes the value
   const newValue = e.target.value; 
-  
-  const reNum = /[\d\.]/; //regex to test for any digit or period
-  const reOps = /^[+\-*.\/]*$/ //regex to test for any of the following math operators: + - * /
-  if (reNum.test(newValue)) { 
-    console.log("Value is", newValue,"!");
-    return(newValue);
-  } else if (reOps.test(newValue)) {
-      console.log("Math operator detected! Value is", newValue,"!")
+  const regNumPeriod = /[\d\.]/; //regex to test for any digit or period
+  if (regNumPeriod.test(newValue)) { 
+      isNumberOrPeriod(newValue);
+  } else if (regOps.test(newValue)) {
+      isOperator(newValue);
   } else if (newValue === "=") {
-      console.log("Equals detected!")
+      doCalc();
+  } else {
+    console.log("Invalid input ignored.")
+    return;
   }
 }
 
-let input = 0;
+let inputStr = "";
+let inputNumber = 0;
+let operator = "";
+let history = "";
 
-const newNum = function() {
+let calcArray = [0, 0, 0];
+
+function isNumberOrPeriod(newValue) {
+  if (newValue === "." && input.indexOf(".") !== -1) { //check if newValue is a period and if the input string contains a period. If it does, return.
+    return;
+  } else {
+    inputStr = inputStr + newValue;
+    history = history + newValue;
+    console.log(history);
+    inputStrToNumber();
+  }
+/*  console.log(input);
+  console.log(typeof(input));
+  console.log(inputNumber);
+  console.log(typeof(inputNumber));*/
+}
+let opCounter = 0;
+function isOperator(newValue) {
+  console.log("isOperator active!");
+  console.log("opCounter is", opCounter);
+  operator = newValue; 
+  console.log("Operator set to", operator);
+  const lastHist = history.slice(-1); 
+
+  if (regOps.test(lastHist)) { //test to see if last char entered was an operator. If so, replace it with the new one.
+    history = history.substring(0, history.length - 1);
+    history = history + newValue;
+    return;
+    
+  }
+  
+  if (opCounter < 1) { //if this is the first operation
+    console.log("opCounter < 1")
+    console.log("inputNumber type is", typeof inputNumber);
+    calcArray[1] = inputNumber;
+    console.log("calcArray values are", calcArray[0], calcArray[1], calcArray[2]);
+  } else if (opCounter >= 1) {
+    console.log("opCounter >= 1)")
+    calcArray[0] = calcArray[1];
+    calcArray[1] = inputNumber;
+    console.log("calcArray values are", calcArray[0], calcArray[1], calcArray[2]);
+    doCalc();
+  }
+
+  history = history + newValue;
+  opCounter ++;
+  inputStr = "";
+
   
 }
-const add = function(x, y) {
-	a = x + y;
-  return(a);
+
+function doCalc() {
+  if (calcArray[2] != 0) {
+    calcArray[0] = calcArray[2];
+  }
+  console.log("Starting calc. calcArray values are", calcArray);
+  switch (operator) {
+    case "+":
+      console.log("performing addition!");
+      calcArray[2] = calcArray[0] + calcArray[1];
+      break;
+    case "-":
+      console.log("performing subtraction!");
+      calcArray[2] = calcArray[0] - calcArray[1];
+      break;
+    case "*":
+      console.log("performing multiplication!");
+      calcArray[2] = calcArray[0] * calcArray[1];
+      break;
+    case "/":
+      console.log("performing division!");
+      calcArray[2] = calcArray[0] / calcArray[1];
+      
+      break;
+  }
+  console.log("Calculation performed! New calcArray values are", calcArray)
 }
 
-const subtract = function(x, y) {
-	a = x - y;
-  return(a);
-};
 
-const multiply = function(x, y) {
-	a = x * y;
-  return(a);
-};
 
-const divide = function (x, y) {
-  a = x / y;
-  return(a);
+// helper functions
+function inputStrToNumber() {
+  inputNumber = Number(inputStr);
 }
 
+function clearAll() {
+  inputStr = "";
+  inputNumber = 0;
+  history = "";
+}
