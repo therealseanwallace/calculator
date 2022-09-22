@@ -1,12 +1,17 @@
-(() => { //create calculator buttons
+    //LAYOUT//
+
+    //clear display & create calculator buttons
+
+const selectDisplay = document.querySelector(`.display`);
+(() => { 
+    clearDisplay();
     
-    
-    const createDiv = (class1, container, class2, /*contentId,*/ containerType, type) => {
+    const createDiv = (class1, container, class2, containerType, type) => {
       const selectDiv = document.querySelector(`.${container}`);
       const newDiv = document.createElement(`${containerType}`);
       
       newDiv.classList.add(class1);
-      //newDiv.value = buttonContent[contentId];
+      
       
       
       if (class2 != undefined) {
@@ -22,26 +27,28 @@
     }
 
     let buttonCounter = 0;
-    createDiv("upper-row", "buttons", null, /*null,*/ "div");
-    createDiv("lower-columns", "buttons", null, /*null,*/ "div");
+    createDiv("upper-row", "buttons", null, "div");
+    createDiv("lower-columns", "buttons", null, "div");
 
     for (let i = 0; i < 4; i++) {
-      createDiv(`button-${buttonCounter}`, "upper-row", "upper-button", /*null,*/ "div");
+      createDiv(`button-${buttonCounter}`, "upper-row", "upper-button", "div");
       buttonCounter++;
     }
     
     for (let i = 0; i < 6; i++) {
-      createDiv(`column-${i}`, "lower-columns", "column", /*null,*/ "div");
+      createDiv(`column-${i}`, "lower-columns", "column", "div");
       for (let index = 0; index < 4; index++) {
-        createDiv(`button-${buttonCounter}`, `column-${i}`, "lower", /*null,*/ "div", "button");
+        createDiv(`button-${buttonCounter}`, `column-${i}`, "lower", "div", "button");
         buttonCounter++;
       }
     }
 
     for (let i = 0; i < buttonCounter; i++) {
-      createDiv(`inner-button-${i}`, `button-${i}`, "inner-button", /*i,*/ "input");
+      createDiv(`inner-button-${i}`, `button-${i}`, "inner-button", "input");
       
     }
+
+    //select buttons and add event listeners
     let forOfCounter = 0;
     const selectInnerButtons = document.querySelectorAll(".inner-button")
     for (const btn of selectInnerButtons) {
@@ -49,9 +56,9 @@
       btn.value = buttonContent[forOfCounter];
       btn.setAttribute("type", "button");
       
-      btn.addEventListener("click", getValue);
+      btn.addEventListener("click", getInput);
       
-
+      //apply classes for color styling
       if (forOfCounter <= 3) {
         btn.classList.add("dark-red")
         
@@ -86,144 +93,58 @@
     
 })();
 
-let newNum = 0;
-function getValue(e) {
-  processValues(e.target.value);
+    //CALCULATOR LOGIC//
+
+selectDisplay.addEventListener("input", updateInputFromDisplay);
+console.log(selectDisplay);
+
+
+function updateInputFromDisplay() {
+  input = selectDisplay.value;
 }
 
-let input = "";
-let operator = "";
-let a = "";
-let calcCounter = 0;
-let output = "";
-function processValues(key) {
-  const number = /\d/;
+function clearDisplay() {
+  selectDisplay.value = "";
+}
+
+
+function getInput(e) { // gets a button value from a button press event and processes the value
+  const newValue = e.target.value; 
   
-  
-
-  if (number.test(key)) {
-    input = input + key;
-  } else {
-    
-  }
-  
-  if (key === ".") {
-    if (input.indexOf(".") !== -1) {
-      return;
-    } else {
-      input = input + key;
-    }
-  } 
-
-  if (key === "/") {
-    
-    if (output != "") {
-      calcOutput();
-    } else {
-      convertClearInput()
-    }
-    operator = "/";
-
-  } else {
-    
-  }
-
-  if (key === "*") {
-    if (output != "") {
-      calcOutput();
-    } else {
-      convertClearInput()
-    }
-    operator = "*";
-  } else {
-    
-  }
-
-  if (key === "-") {
-    if (output != "") {
-      calcOutput();
-    } else {
-      convertClearInput()
-    a = input;
-    clearInput();
-    }
-    operator = "-";
-  } else {
-    
-  }
-
-  if (key === "+") {
-    if (output != "") {
-      calcOutput();
-    } else {
-      convertClearInput()
-    }
-    operator = "+";
-  } else {
-    
-  }
-
-  if (key === "=") {
-    performCalc();
-    calcCounter ++;
-  } else {
-    
-  }
-
-  if (key === "C") {
-    
-  } else {
-    
-  }
-
-  if (key === "CE") {
-    
-  } else {
-    
+  const reNum = /[\d\.]/; //regex to test for any digit or period
+  const reOps = /^[+\-*.\/]*$/ //regex to test for any of the following math operators: + - * /
+  if (reNum.test(newValue)) { 
+    console.log("Value is", newValue,"!");
+    return(newValue);
+  } else if (reOps.test(newValue)) {
+      console.log("Math operator detected! Value is", newValue,"!")
+  } else if (newValue === "=") {
+      console.log("Equals detected!")
   }
 }
 
-function clearInput() {
-  input = "";
-}
+let input = 0;
 
-function performCalc() {
-  if (operator === "/") {
-    output = a / input;
-    clearInput();
-  }
-
-  if (operator === "*") {
-    output = a * input;
-    clearInput();
-  }
-
-  if (operator === "-") {
-    output = a - input;
-    clearInput();
-  }
-
-  if (operator === "+") {
-    a = Number(a);
-    input = Number(input);
-    output = a + input;
-    clearInput();
-  }
-  console.log(output);
-}
-function updateDisplay() {
-
-}
-
-function calcOutput() {
-  if (output != "") {
-    a = output;
-  }
+const newNum = function() {
   
 }
-
-function convertClearInput() {
-  input = Number(input);
-  a = input;
-  clearInput();
+const add = function(x, y) {
+	a = x + y;
+  return(a);
 }
+
+const subtract = function(x, y) {
+	a = x - y;
+  return(a);
+};
+
+const multiply = function(x, y) {
+	a = x * y;
+  return(a);
+};
+
+const divide = function (x, y) {
+  a = x / y;
+  return(a);
+}
+
