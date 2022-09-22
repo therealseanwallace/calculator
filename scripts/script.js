@@ -60,13 +60,11 @@ const selectDisplay = document.querySelector(`.display-text`);
       
       
       //apply classes for color styling
+      
+      
       if (forOfCounter <= 3) {
         btn.classList.add("dark-red")
         
-      }
-
-      if (forOfCounter >= 4 && forOfCounter <= 7) {
-      btn.classList.add("red")
       }
 
       if (forOfCounter >= 8 && forOfCounter <= 19) {
@@ -88,16 +86,20 @@ const selectDisplay = document.querySelector(`.display-text`);
       if (forOfCounter === 27) {
         btn.classList.add("red")
       }
-      forOfCounter++;
 
+      if (forOfCounter === 2 || forOfCounter >= 4 && forOfCounter <= 7 || forOfCounter >= 24 && forOfCounter < 27) {
+        btn.classList.remove("dark-red");
+        btn.classList.add("grey");
+        btn.removeEventListener("click", getInput);
+      }
+      forOfCounter++;
+      
+      
     }
     
 })();
 
     //CALCULATOR LOGIC//
-
-
-
 
 function clearDisplay() {
   selectDisplay.textContent = "";

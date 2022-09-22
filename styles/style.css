@@ -218,6 +218,11 @@ input[type=number] {
   padding-bottom: 10px;
 }
 
+.inner-button:active {
+  background-color: blue;
+  color: white;
+}
+
 .button-0  {
   margin-right: 20px;
 }
@@ -269,6 +274,11 @@ input[type=number] {
   color: #000080;
 }
 
-.inner-button-2, .inner-button-4, .inner-button-5, .inner-button-6, .inner-button-7, .inner-button-15, .inner-button-24, .inner-button-25, .inner-button-26 {
+.grey {
   color: #808080;
+}
+
+.grey:active {
+  background-color: #c0c0c0;
+  color: #808080
 }
