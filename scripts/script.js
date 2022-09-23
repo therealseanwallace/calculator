@@ -136,10 +136,10 @@ function getInput(e) { // gets a value from an input event and processes the val
   } else if (regOps.test(newValue)) {
       isOperator(newValue);
   } else if (newValue === "=") {
-    opCounter = 0;  
-    calcArray[0] = calcArray[1];
+      calcArray[0] = calcArray[1];
       calcArray[1] = inputNumber;
       doCalc();
+      opCounter = 0;  
   } else if (newValue === "C") {
     clearAll();
   } else if (newValue === "Back") {
@@ -159,7 +159,13 @@ let history = "";
 
 let calcArray = [0, 0, 0];
 
+//some sort of test to check if the current display value is a result
+
 function isNumberOrPeriod(newValue) {
+  console.log("Display is result=", displayIsResult);
+  if (displayIsResult > 0) { //if existing displayed number is a digit, reset the calculator
+    clearAll();
+  }
   if (newValue === "." && inputStr.indexOf(".") !== -1) { //check if newValue is a period and if the input string contains a period. If it does, return.
     return;
   } else {
@@ -173,6 +179,7 @@ function isNumberOrPeriod(newValue) {
   console.log(typeof(input));
   console.log(inputNumber);
   console.log(typeof(inputNumber));*/
+  
 }
 let opCounter = 0;
 function isOperator(newValue) {
@@ -209,6 +216,8 @@ function isOperator(newValue) {
   
 }
 
+let displayIsResult = 0;
+
 function doCalc() {
   if (calcArray[2] != 0) {
     calcArray[0] = calcArray[2];
@@ -238,16 +247,16 @@ function doCalc() {
   }
   
   selectDisplay.textContent = calcArray[2];
-  console.log("Calculation performed! New calcArray values are", calcArray)
+  displayIsResult = 1;
+  console.log("Calculation performed! New calcArray values are", calcArray);
+  inputStr ="";
+  inputNumber=0;
 }
 
-
-
-// helper functions
 function inputStrToNumber() {
   inputNumber = Number(inputStr);
 }
 
-function clearAll() {
+function clearAll() { //reset the calculator
   document.location.reload();
 }
