@@ -55,6 +55,8 @@ const selectDisplay = document.querySelector(`.display-text`);
       btn.setAttribute("type", "button");
       
       btn.addEventListener("click", getInput);
+      window.addEventListener("keyup", getInput);
+      
       
       
       //apply classes for color styling
@@ -85,7 +87,7 @@ const selectDisplay = document.querySelector(`.display-text`);
         btn.classList.add("red")
       }
 
-      if (forOfCounter === 2 || forOfCounter >= 4 && forOfCounter <= 7 || forOfCounter >= 24 && forOfCounter < 27) {
+      if (forOfCounter === 2 || forOfCounter >= 4 && forOfCounter <= 7 || forOfCounter >= 24 && forOfCounter < 27) { //remove event listeners from greyed buttons
         btn.classList.remove("dark-red");
         btn.classList.add("grey");
         btn.removeEventListener("click", getInput);
@@ -97,6 +99,11 @@ const selectDisplay = document.querySelector(`.display-text`);
     
 })();
 
+/*function keypress(e) {
+  console.log("keypress detected!");
+  console.log("e.key is",e.key);
+  
+}*/
     //CALCULATOR LOGIC//
 
 function clearDisplay() {
@@ -106,8 +113,22 @@ function clearDisplay() {
 const regOps = /^[+\-*.\/]*$/ //regex to test for any of the following math operators: + - * /
 
 function getInput(e) { // gets a value from an input event and processes the value
-  console.log("Event source is", e.target); 
-  const newValue = e.target.value; 
+  console.log()
+  const newKeypress = e.key;
+  console.log("new keypress is", e.key);
+  console.log("new keypress type is", typeof e.key);
+
+  let newValue = e.target.value; 
+  
+  
+  if (e.key != undefined) {
+    newValue = e.key;
+    if (newValue === "Enter") {
+      newValue = "=";
+    }
+    console.log("newvalue=",newValue);
+  }
+  
   const regNumPeriod = /[\d\.]/; //regex to test for any digit or period
 
   if (regNumPeriod.test(newValue)) { 
@@ -155,10 +176,10 @@ function isNumberOrPeriod(newValue) {
 }
 let opCounter = 0;
 function isOperator(newValue) {
-  console.log("isOperator active!");
-  console.log("opCounter is", opCounter);
+  //console.log("isOperator active!");
+  //console.log("opCounter is", opCounter);
   operator = newValue; 
-  console.log("Operator set to", operator);
+  //console.log("Operator set to", operator);
   const lastHist = history.slice(-1); //store the last character of history as lastHist
 
   if (regOps.test(lastHist)) { //test to see if last char entered (lastHist) was an operator. If so, replace it with the new one.
