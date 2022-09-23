@@ -1,4 +1,4 @@
-    //LAYOUT - clear display, create calculator buttons, add event listeners, and apply styling classes
+    // ***LAYOUT - clear display, create calculator buttons, add event listeners, and apply styling classes***
 
 const selectDisplay = document.querySelector(`.display-text`);
 (() => { 
@@ -46,7 +46,7 @@ const selectDisplay = document.querySelector(`.display-text`);
       
     }
 
-    //select buttons and add event listeners
+    // ***Select buttons and add event listeners***
     let forOfCounter = 0;
     const selectInnerButtons = document.querySelectorAll(".inner-button")
     for (const btn of selectInnerButtons) {
@@ -59,7 +59,7 @@ const selectDisplay = document.querySelector(`.display-text`);
       
       
       
-      //apply classes for color styling
+      // ***Apply classes for color styling***
       
       
       if (forOfCounter <= 3) {
@@ -99,11 +99,6 @@ const selectDisplay = document.querySelector(`.display-text`);
     
 })();
 
-/*function keypress(e) {
-  console.log("keypress detected!");
-  console.log("e.key is",e.key);
-  
-}*/
     //CALCULATOR LOGIC//
 
 function clearDisplay() {
@@ -113,20 +108,15 @@ function clearDisplay() {
 const regOps = /^[+\-*.\/]*$/ //regex to test for any of the following math operators: + - * /
 
 function getInput(e) { // gets a value from an input event and processes the value
-  console.log()
-  const newKeypress = e.key;
-  console.log("new keypress is", e.key);
-  console.log("new keypress type is", typeof e.key);
 
+  const newKeypress = e.key;
   let newValue = e.target.value; 
-  
   
   if (e.key != undefined) {
     newValue = e.key;
     if (newValue === "Enter") {
       newValue = "=";
     }
-    console.log("newvalue=",newValue);
   }
   
   const regNumPeriod = /[\d\.]/; //regex to test for any digit or period
@@ -147,7 +137,6 @@ function getInput(e) { // gets a value from an input event and processes the val
     inputStrToNumber();
     selectDisplay.textContent = inputStr;
   } else {
-    console.log("Invalid input ignored.")
     return;
   } 
 }
@@ -159,15 +148,11 @@ let history = "";
 
 let calcArray = [0, 0, 0];
 
-//some sort of test to check if the current display value is a result
-
 function isNumberOrPeriod(newValue) {
-  console.log("Display is result=", displayIsResult);
   if (displayIsResult > 0) { //if existing displayed number is a result, reset the calculator
     clearDisplay();
     calcArray = [0, 0, 0];
     displayIsResult = 0;
-    
   }
   if (newValue === "." && inputStr.indexOf(".") !== -1) { //check if newValue is a period and if the input string contains a period. If it does, return.
     return;
@@ -175,48 +160,31 @@ function isNumberOrPeriod(newValue) {
     inputStr = inputStr + newValue;
     history = history + newValue;
     selectDisplay.textContent = inputStr;
-
     inputStrToNumber();
-  }
-/*  console.log(input);
-  console.log(typeof(input));
-  console.log(inputNumber);
-  console.log(typeof(inputNumber));*/
-  
+  }  
 }
 let opCounter = 0;
 function isOperator(newValue) {
-  //console.log("isOperator active!");
-  //console.log("opCounter is", opCounter);
   operator = newValue; 
-  //console.log("Operator set to", operator);
   const lastHist = history.slice(-1); //store the last character of history as lastHist
 
   if (regOps.test(lastHist)) { //test to see if last char entered (lastHist) was an operator. If so, replace it with the new one.
     history = history.substring(0, history.length - 1);
     history = history + newValue;
     return;
-    
   }
   
   if (opCounter < 1) { //if this is the first operation
-    console.log("opCounter < 1")
-    console.log("inputNumber type is", typeof inputNumber);
     calcArray[1] = inputNumber;
-    console.log("calcArray values are", calcArray[0], calcArray[1], calcArray[2]);
   } else if (opCounter >= 1) {
     console.log("opCounter >= 1)")
     calcArray[0] = calcArray[1];
     calcArray[1] = inputNumber;
-    console.log("calcArray values are", calcArray[0], calcArray[1], calcArray[2]);
     doCalc();
   }
-
   history = history + newValue;
   opCounter ++;
   inputStr = "";
-
-  
 }
 
 let displayIsResult = 0;
@@ -225,22 +193,17 @@ function doCalc() {
   if (calcArray[2] != 0) {
     calcArray[0] = calcArray[2];
   }
-  console.log("Starting calc. calcArray values are", calcArray);
   switch (operator) {
     case "+":
-      console.log("performing addition!");
       calcArray[2] = calcArray[0] + calcArray[1];
       break;
     case "-":
-      console.log("performing subtraction!");
       calcArray[2] = calcArray[0] - calcArray[1];
       break;
     case "*":
-      console.log("performing multiplication!");
       calcArray[2] = calcArray[0] * calcArray[1];
       break;
     case "/":
-      console.log("performing division!");
       calcArray[2] = calcArray[0] / calcArray[1];
       if (calcArray[2] === Infinity) {
         alert("Can't divide by 0. Resetting calculator.")
@@ -251,7 +214,6 @@ function doCalc() {
   
   selectDisplay.textContent = calcArray[2];
   displayIsResult = 1;
-  console.log("Calculation performed! New calcArray values are", calcArray);
   inputStr ="";
   inputNumber=0;
 }
