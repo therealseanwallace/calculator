@@ -3,24 +3,16 @@
 const selectDisplay = document.querySelector(`.display-text`);
 (() => { 
     clearDisplay();
-    
     const createDiv = (class1, container, class2, containerType, type) => {
       const selectDiv = document.querySelector(`.${container}`);
       const newDiv = document.createElement(`${containerType}`);
-      
       newDiv.classList.add(class1);
-      
-      
-      
       if (class2 != undefined) {
         newDiv.classList.add(class2);
       }
-
       if (type != undefined) {
         newDiv.setAttribute("type", type);
       }
-
-      
       selectDiv.append(newDiv);
     }
 
@@ -43,7 +35,6 @@ const selectDisplay = document.querySelector(`.display-text`);
 
     for (let i = 0; i < buttonCounter; i++) {
       createDiv(`inner-button-${i}`, `button-${i}`, "inner-button", "input");
-      
     }
 
     // ***Select buttons and add event listeners***
@@ -53,18 +44,13 @@ const selectDisplay = document.querySelector(`.display-text`);
       const buttonContent = ["", "Back", "CE", "C", "MC", "MR", "MS", "M+", "7", "4", "1", "0", "8", "5", "2", "+/-", "9", "6", "3", ".", "/", "*", "-", "+", "sqrt", "%", "1/x", "="]
       btn.value = buttonContent[forOfCounter];
       btn.setAttribute("type", "button");
-      
       btn.addEventListener("click", getInput);
       window.addEventListener("keyup", getInput);
       
-      
-      
       // ***Apply classes for color styling***
       
-      
       if (forOfCounter <= 3) {
-        btn.classList.add("dark-red")
-        
+        btn.classList.add("dark-red")  
       }
 
       if (forOfCounter >= 8 && forOfCounter <= 19) {
@@ -93,8 +79,6 @@ const selectDisplay = document.querySelector(`.display-text`);
         btn.removeEventListener("click", getInput);
       }
       forOfCounter++;
-      
-      
     }
     
 })();
@@ -149,9 +133,9 @@ let history = "";
 let calcArray = [0, 0, 0];
 
 function isNumberOrPeriod(newValue) {
-  if (displayIsResult > 0) { //if existing displayed number is a result, reset the calculator
+  if (displayIsResult > 0) { //if existing displayed number is a result, clear the display
+    console.log("num or period - calcArray is", calcArray);
     clearDisplay();
-    calcArray = [0, 0, 0];
     displayIsResult = 0;
   }
   if (newValue === "." && inputStr.indexOf(".") !== -1) { //check if newValue is a period and if the input string contains a period. If it does, return.
@@ -163,21 +147,20 @@ function isNumberOrPeriod(newValue) {
     inputStrToNumber();
   }  
 }
+
 let opCounter = 0;
+
 function isOperator(newValue) {
   operator = newValue; 
   const lastHist = history.slice(-1); //store the last character of history as lastHist
-
   if (regOps.test(lastHist)) { //test to see if last char entered (lastHist) was an operator. If so, replace it with the new one.
     history = history.substring(0, history.length - 1);
     history = history + newValue;
     return;
   }
-  
   if (opCounter < 1) { //if this is the first operation
     calcArray[1] = inputNumber;
   } else if (opCounter >= 1) {
-    console.log("opCounter >= 1)")
     calcArray[0] = calcArray[1];
     calcArray[1] = inputNumber;
     doCalc();
@@ -190,12 +173,16 @@ function isOperator(newValue) {
 let displayIsResult = 0;
 
 function doCalc() {
+  if (calcArray[0] === 0 && calcArray[1] === 0) {
+    calcArray[3] === 0;
+  }
   if (calcArray[2] != 0) {
     calcArray[0] = calcArray[2];
   }
   switch (operator) {
     case "+":
       calcArray[2] = calcArray[0] + calcArray[1];
+      console.log("calcArray is", calcArray);
       break;
     case "-":
       calcArray[2] = calcArray[0] - calcArray[1];
@@ -210,6 +197,7 @@ function doCalc() {
         reset();
       }
       break;
+      
   }
   
   selectDisplay.textContent = calcArray[2];
