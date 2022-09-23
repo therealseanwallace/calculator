@@ -141,7 +141,7 @@ function getInput(e) { // gets a value from an input event and processes the val
       doCalc();
       opCounter = 0;  
   } else if (newValue === "C") {
-    clearAll();
+    reset();
   } else if (newValue === "Back") {
     inputStr = inputStr.slice(0, -1);
     inputStrToNumber();
@@ -163,8 +163,11 @@ let calcArray = [0, 0, 0];
 
 function isNumberOrPeriod(newValue) {
   console.log("Display is result=", displayIsResult);
-  if (displayIsResult > 0) { //if existing displayed number is a digit, reset the calculator
-    clearAll();
+  if (displayIsResult > 0) { //if existing displayed number is a result, reset the calculator
+    clearDisplay();
+    calcArray = [0, 0, 0];
+    displayIsResult = 0;
+    
   }
   if (newValue === "." && inputStr.indexOf(".") !== -1) { //check if newValue is a period and if the input string contains a period. If it does, return.
     return;
@@ -241,7 +244,7 @@ function doCalc() {
       calcArray[2] = calcArray[0] / calcArray[1];
       if (calcArray[2] === Infinity) {
         alert("Can't divide by 0. Resetting calculator.")
-        clearAll();
+        reset();
       }
       break;
   }
@@ -257,6 +260,6 @@ function inputStrToNumber() {
   inputNumber = Number(inputStr);
 }
 
-function clearAll() { //reset the calculator
+function reset() {
   document.location.reload();
 }
