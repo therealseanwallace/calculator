@@ -9,6 +9,7 @@
 html, body {
   height: 100%;
 }
+
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -29,10 +30,18 @@ p, h1, h2, h3, h4, h5, h6 {
 
 /*STYLES*/
 
+body {
+  background: url("/images/win95.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  
+}
 .outermost-container {
   height: 519px;
   width: 550px;
   margin: auto;
+  margin-top: 5vh;
   border: 2px solid;
   border-color:  #c0c0c0 #000000 #000000 #c0c0c0;
 }
