@@ -31,7 +31,7 @@ p, h1, h2, h3, h4, h5, h6 {
 /*STYLES*/
 
 body {
-  background: url("/images/win95.jpg");
+  background: url("https://therealseanwallace.github.io/calculator/images/win95.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
