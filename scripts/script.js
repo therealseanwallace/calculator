@@ -1,6 +1,4 @@
-    //LAYOUT//
-
-    //clear display & create calculator buttons
+    //LAYOUT - clear display, create calculator buttons, add event listeners, and apply styling classes
 
 const selectDisplay = document.querySelector(`.display-text`);
 (() => { 
