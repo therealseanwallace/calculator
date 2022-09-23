@@ -129,7 +129,6 @@ let inputStr = "";
 let inputNumber = 0;
 let operator = "";
 let history = "";
-
 let calcArray = [0, 0, 0];
 
 function isNumberOrPeriod(newValue) {
