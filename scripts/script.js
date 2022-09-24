@@ -1,37 +1,38 @@
-    // ***LAYOUT - clear display, create calculator buttons, add event listeners, and apply styling classes***
+/*  LAYOUT - clear display, create calculator buttons,
+add event listeners, and apply styling classes  */
 
-const selectDisplay = document.querySelector(`.display-text`);
-(() => { 
-    clearDisplay();
-    const createDiv = (class1, container, class2, containerType, type) => {
-      const selectDiv = document.querySelector(`.${container}`);
-      const newDiv = document.createElement(`${containerType}`);
-      newDiv.classList.add(class1);
-      if (class2 != undefined) {
-        newDiv.classList.add(class2);
-      }
-      if (type != undefined) {
-        newDiv.setAttribute("type", type);
-      }
-      selectDiv.append(newDiv);
+const selectDisplay = document.querySelector('.display-text');
+(() => {
+  clearDisplay();
+  const createDiv = (class1, container, class2, containerType, type) => {
+    const selectDiv = document.querySelector(`.${container}`);
+    const newDiv = document.createElement(`${containerType}`);
+    newDiv.classList.add(class1);
+    if (class2 != undefined) {
+      newDiv.classList.add(class2);
     }
+    if (type != undefined) {
+      newDiv.setAttribute("type", type);
+    }
+    selectDiv.append(newDiv);
+  }
 
-    let buttonCounter = 0;
-    createDiv("upper-row", "buttons", null, "div");
-    createDiv("lower-columns", "buttons", null, "div");
+  let buttonCounter = 0;
+  createDiv("upper-row", "buttons", null, "div");
+  createDiv("lower-columns", "buttons", null, "div");
 
-    for (let i = 0; i < 4; i++) {
-      createDiv(`button-${buttonCounter}`, "upper-row", "upper-button", "div");
+  for (let i = 0; i < 4; i++) {
+    createDiv(`button-${buttonCounter}`, "upper-row", "upper-button", "div");
+    buttonCounter++;
+  }
+    
+  for (let i = 0; i < 6; i++) {
+    createDiv(`column-${i}`, "lower-columns", "column", "div");
+    for (let index = 0; index < 4; index++) {
+      createDiv(`button-${buttonCounter}`, `column-${i}`, "lower", "div", "button");
       buttonCounter++;
     }
-    
-    for (let i = 0; i < 6; i++) {
-      createDiv(`column-${i}`, "lower-columns", "column", "div");
-      for (let index = 0; index < 4; index++) {
-        createDiv(`button-${buttonCounter}`, `column-${i}`, "lower", "div", "button");
-        buttonCounter++;
-      }
-    }
+  }
 
     for (let i = 0; i < buttonCounter; i++) {
       createDiv(`inner-button-${i}`, `button-${i}`, "inner-button", "input");
@@ -181,7 +182,6 @@ function doCalc() {
   switch (operator) {
     case "+":
       calcArray[2] = calcArray[0] + calcArray[1];
-      console.log("calcArray is", calcArray);
       break;
     case "-":
       calcArray[2] = calcArray[0] - calcArray[1];
